@@ -9,6 +9,10 @@ const PATHS = {
   build: path.join(__dirname, 'build')
 };
 
+// An easy way to control .babelrc is to set BABEL_ENV environment variable as npm lifecycle event.
+// This gives a predictable mapping between package.json and .babelrc
+process.env.BABEL_ENV = TARGET;
+
 const common = {
   // Entry accepts a path or an object of entries.
   entry: PATHS.app,
