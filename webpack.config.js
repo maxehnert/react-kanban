@@ -12,6 +12,11 @@ const PATHS = {
 const common = {
   // Entry accepts a path or an object of entries.
   entry: PATHS.app,
+
+  // Add resolve.extensions. '' is needed to allow imports
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   output: {
     path: PATHS.build,
     filename: 'bundle.js'
@@ -24,12 +29,21 @@ const common = {
         loaders: ['style', 'css'],
         // Include accepts either a path or an array of path
         include: PATHS.app
+      },
+      {
+        test: /\.jsx?$/,
+
+        // Enable caching for improved performance during development
+        loaders: ['babel?cacheDirectory'],
+        include: PATHS.app
       }
     ]
   },
   plugins: [
     new HtmlwebpackPlugin({
-      title: 'Kanban'
+      template: 'node_modules/html-webpack-template/index.html',
+      title: 'Kanban',
+      appMountId: 'app'
     })
   ],
 };
