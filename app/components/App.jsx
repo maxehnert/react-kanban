@@ -6,24 +6,7 @@ import LaneStore from '../stores/LaneStore';
 
 export default class App extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = NoteStore.getState();
-  }
-  componentDidMount() {
-    NoteStore.listen(this.storeChanged);
-  }
-  componentWillUnmount() {
-    NoteStore.unlisten(this.storeChanged);
-  }
-  storeChanged = (state) => {
-    this.setState(state);
-  };
   render() {
-
-    const notes = this.state.notes;
-
     return (
       <div>
         <button className="add-lane" onClick={this.addLane}>+</button>

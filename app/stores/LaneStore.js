@@ -19,6 +19,32 @@ class LaneStore {
       lanes: lanes.concat(lane)
     });
   }
+  attachToLane({laneId, noteId}) {
+    const lanes = this.lanes.map((lane) => {
+      if (lane.id === lanId) {
+        if (lane.notes.indexOf(noteId) === -1) {
+          lane.notes.push(noteId);
+        } else {
+          console.warn('Already atteched note to lane', lanes);
+        }
+      }
+
+      return lane;
+    });
+
+    this.setState({lanes});
+  }
+  detachFromLane({laneId, noteId}){
+    const lanes = this.lanes.map((lane) => {
+      if (lane.id === laneId) {
+        lane.notes = lane.notes.filter((note) => note !== noteId);
+      }
+
+      return lane;
+    });
+
+    this.setState({lanes});
+  }
 }
 
 export default alt.createStore(LaneStore, 'LaneStore');
