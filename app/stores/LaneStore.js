@@ -56,7 +56,7 @@ class LaneStore {
 
 
   }
-  detachFromLane({laneId, noteId}){
+  detachFromLane({laneId, noteId}) {
     const lanes = this.lanes.map((lane) => {
       if (lane.id === laneId) {
         lane.notes = lane.notes.filter((note) => note !== noteId);
@@ -66,6 +66,9 @@ class LaneStore {
     });
 
     this.setState({lanes});
+  }
+  move({sourceId, targetId}) {
+    console.log('source', sourceId, 'target', targetId);
   }
 }
 
