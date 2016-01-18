@@ -3,6 +3,8 @@ const HtmlwebpackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
 const webpack = require('webpack');
 const pkg = require('./package.json');
+const Clean = require('clean-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -28,13 +30,6 @@ const common = {
   },
   module: {
     loaders: [
-      {
-        // Test expects a RexExp
-        test: /\.css$/,
-        loaders: ['style', 'css'],
-        // Include accepts either a path or an array of path
-        include: PATHS.app
-      },
       {
         test: /\.jsx?$/,
 
@@ -69,6 +64,17 @@ if (TARGET === 'start' || !TARGET) {
       host: process.env.HOST,
       port: process.env.PORT
     },
+    module: {
+      loaders: [
+        {
+          // Test expects a RexExp
+          test: /\.css$/,
+          loaders: ['style', 'css'],
+          // Include accepts either a path or an array of path
+          include: PATHS.app
+        }
+      ]
+    },
     plugins: [
       new webpack.HotModuleReplacementPlugin()
     ]
@@ -84,7 +90,16 @@ if (TARGET === 'build') {
         return v !== 'alt-utils';
       })
     },
+    output: {
+      path: PATHS.build,
+      filename: '[name].[chunkhash].js',
+      chunkFilename: '[chunkhash].js'
+    },
     plugins: [
+      new Clean([PATHS.build]),
+      new webpack.optimize.CommonsChunkPlugin({
+        names: ['vendor', 'manifest']
+      }),
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
