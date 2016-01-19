@@ -39,7 +39,7 @@ const noteTarget = {
 export default class Note extends Component {
   render() {
     const {connectDragSource, connectDropTarget, isDragging, id, onMove, ...props} = this.props;
-
+    console.log('note'); console.log(this.props);
     return connectDragSource(connectDropTarget(
       <li style={{
           opacity: isDragging ? 0 : 1

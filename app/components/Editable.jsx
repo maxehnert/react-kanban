@@ -4,7 +4,7 @@ export default class Editable extends Component {
 
   render() {
     const {value, onEdit, onValueClick, editing, ...props} = this.props;
-
+console.log('Editable'); console.log(this.props);
     return (
       <div {...props}>
         {editing ? this.renderEdit() : this.renderValue()}
