@@ -81,7 +81,7 @@ if (TARGET === 'start' || !TARGET) {
   });
 }
 
-if (TARGET === 'build') {
+if (TARGET === 'build' || TARGET === 'stats') {
   module.exports = merge(common, {
     entry: {
       app: PATHS.app,
@@ -95,8 +95,22 @@ if (TARGET === 'build') {
       filename: '[name].[chunkhash].js',
       chunkFilename: '[chunkhash].js'
     },
+    module: {
+      loaders: [
+        {
+          // Test expects a RexExp
+          test: /\.css$/,
+          loader: ExtractTextPlugin.extract('style', 'css'),
+          // Include accepts either a path or an array of path
+          include: PATHS.app
+        }
+      ]
+    },
     plugins: [
-      new Clean([PATHS.build]),
+      new Clean(['build']),
+
+      // Output the extracted css to a file
+      new ExtractTextPlugin('styles.[chunkhash].css'),
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor', 'manifest']
       }),
