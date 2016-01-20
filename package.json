@@ -46,6 +46,6 @@
     "react-dnd": "^2.0.2",
     "react-dnd-html5-backend": "^2.0.2",
     "react-dom": "^0.14.6",
-    "react-model": "0.0.0"
+    "react-modal": "^0.6.1"
   }
 }

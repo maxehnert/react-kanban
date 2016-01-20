@@ -10,8 +10,5 @@
 * navitgate to port 8080
 * for other builds see the scripts section of the  `package.json` file
 
-Following the survivejs tutorial
-
+From here:
 http://survivejs.com/webpack_react/webpack_and_react/
-
-http://survivejs.com/webpack_react/building_kanban/

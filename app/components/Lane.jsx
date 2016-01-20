@@ -7,6 +7,7 @@ import LaneActions from '../actions/LaneActions';
 import Editable from './Editable.jsx';
 import { DropTarget } from 'react-dnd';
 import ItemTypes from '../constants/itemTypes';
+import Modal from 'react-modal';
 
 const noteTarget = {
   hover(targetProps, monitor) {
@@ -21,6 +22,16 @@ const noteTarget = {
     }
   }
 };
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)'
+  }
+};
 
 @DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
   connectDropTarget: connect.dropTarget()
@@ -29,7 +40,12 @@ export default class Lane extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { modalIsOpen: false };
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+
     const id = props.lane.id;
+
 
     this.addNote = this.addNote.bind(this, id);
     this.deleteNote = this.deleteNote.bind(this, id);
@@ -49,8 +65,25 @@ export default class Lane extends Component {
             onValueClick={this.activateLaneEdit} />
           <div className="lane-add-note">
             <button onClick={this.addNote}>+</button>
+            <button onClick={this.openModal}>Open Modal</button>
           </div>
         </div>
+        <Modal
+         isOpen={this.state.modalIsOpen}
+         onRequestClose={this.closeModal}
+         style={customStyles} >
+
+         <h2>Hello</h2>
+         <button onClick={this.closeModal}>close</button>
+         <div>I am a modal</div>
+         <form>
+           <input />
+           <button>tab navigation</button>
+           <button>stays</button>
+           <button>inside</button>
+           <button>the modal</button>
+         </form>
+       </Modal>
         <AltContainer
           stores={[NoteStore]}
           inject={{
@@ -93,4 +126,15 @@ export default class Lane extends Component {
   activateNoteEdit(id) {
     NoteActions.update({id, editing: true});
   }
+
+  // getInitialState() {
+  // return { modalIsOpen: false };
+  // }
+  openModal() {
+    this.setState({modalIsOpen: true});
+  }
+  closeModal() {
+    this.setState({modalIsOpen: false});
+  }
+
 }
