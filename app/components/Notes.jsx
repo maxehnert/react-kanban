@@ -13,6 +13,7 @@ export default ({notes, onValueClick, onEdit, onDelete}) => {
           key={note.id}
           onMove={LaneActions.move}
           >
+          <div>here</div>
           <Editable
             editing={note.editing}
             value={note.task}

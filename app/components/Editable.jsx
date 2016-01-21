@@ -25,7 +25,7 @@ console.log('Editable'); console.log(this.props);
 
     return (
       <div onClick={this.props.onValueClick}>
-        <span className="task">{this.props.value}</span>
+        <span className="task" style={{ width: '50%'}}>{this.props.value}</span>
         { onDelete ? this.renderDelete() : null }
         </div>
       );
