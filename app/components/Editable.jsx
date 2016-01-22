@@ -15,9 +15,9 @@ console.log('Editable'); console.log(this.props);
 
     // Deal with blur and nput handlers. This maps to DOM events
     return <input type="text"
-    ref={
-        (e) => e ? e.selectionStart = this.props.value.length : null
-      }
+      ref={
+          (e) => e ? e.selectionStart = this.props.value.length : null
+        }
       autoFocus={true}
       defaultValue={this.props.value}
       onBlur={this.finishEdit}
