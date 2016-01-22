@@ -32,13 +32,12 @@ const noteTarget = {
   connectDragSource: connect.dragSource(),
   isDragging: monitor.isDragging()
 }))
-
 @DropTarget(ItemTypes.NOTE, noteTarget, (connect) => ({
   connectDropTarget: connect.dropTarget()
 }))
 export default class Note extends Component {
   render() {
-    const {connectDragSource, connectDropTarget, isDragging, id, onMove, ...props} = this.props;
+    const {connectDragSource, connectDropTarget, isDragging, onMove, id, ...props} = this.props;
     console.log('note'); console.log(this.props);
     return connectDragSource(connectDropTarget(
       <li style={{

@@ -36,24 +36,21 @@ class LaneStore {
     });
   }
   attachToLane({laneId, noteId}) {
-    if (!noteId) {
-      this.waitFor(NoteStore);
+    this.removeNote(noteId);
 
-      noteId = NoteStore.getState().notes.slice(-1)[0].id;
-    }
-    const lanes = this.lanes.map((lane) => {
-      if (lane.id === laneId) {
-        if (lane.notes.indexOf(noteId) === -1) {
+    const lanes = this.lanes.map(lane => {
+      if(lane.id === laneId) {
+        if(lane.notes.indexOf(noteId) === -1) {
           lane.notes.push(noteId);
-        } else {
-          console.warn('Already atteched note to lane', lanes);
+        }
+        else {
+          console.warn('Already attached note to lane', lanes);
         }
       }
 
       return lane;
     });
 
-    this.removeNote(noteId);
     this.setState({lanes});
   }
   detachFromLane({laneId, noteId}) {
